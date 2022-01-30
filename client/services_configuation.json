@@ -1,0 +1,29 @@
+{
+	"configuation_name": "",
+	"configuation_key": "",
+	"configuation_version": 1.0,
+	"server": [
+		{
+			"server_name": "",
+			"server_key": "",
+			"server_ip": "",
+			"server_port": "",
+			"service": [
+				{
+					"service_name": "",
+					"service_key": "",
+					"method_name": "aa",
+					"describtion": "",
+					"enabled": true
+				},
+				{
+					"service_name": "",
+					"service_key": "",
+					"method_name": "",
+					"describtion": "",
+					"enabled": true
+				}
+			]
+		}
+	]
+}
