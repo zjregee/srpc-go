@@ -105,6 +105,9 @@ func (e *ClientEnd) Call(svcMeth string, args interface{}, reply interface{}) bo
 	req.ArgsType = reflect.TypeOf(args)
 	req.ReplyCh = make(chan protocol.ReplyMsg)
 
+	sendData := e.encode(req)
+	e.send(sendData, service.Server_ip, service.Server_port)
+
 	qb := new(bytes.Buffer)
 	qe := sgob.NewEncoder(qb)
 	if err := qe.Encode(args); err != nil {
@@ -131,8 +134,20 @@ func (e *ClientEnd) Call(svcMeth string, args interface{}, reply interface{}) bo
 	}
 }
 
+func (e *ClientEnd) CallOnOneWay() {
+
+}
+
+func (e *ClientEnd) CallWithCompletion() {
+	
+}
+
 func (e *ClientEnd) Close() {
 	e.done <- struct{}{}
+}
+
+func (e *ClientEnd) encode(req protocol.ReqMsg) []byte {
+	return []byte{}
 }
 
 func (e *ClientEnd) send(data []byte, ip, port string) ([]byte, error) {

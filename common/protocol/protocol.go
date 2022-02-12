@@ -1,12 +1,12 @@
 package protocol
 
-import "reflect"
-
-// 消息格式
+import (
+	"reflect"
+)
 
 type ReqMsg struct {
-	Endname  interface{} // name of sending ClientEnd
-	SvcMeth  string      // e.g. "Raft.AppendEntries"
+	Endname  interface{}
+	SvcMeth  string
 	ArgsType reflect.Type
 	Args     []byte
 	ReplyCh  chan ReplyMsg
@@ -17,5 +17,16 @@ type ReplyMsg struct {
 	Reply []byte
 }
 
+type ClientCodec interface {
+	WriteRequest(*ReplyMsg, interface{}) error
+	ReadResponseHeader(*ReplyMsg) error
+	ReadResponseBody(interface{}) error
+	Close() error
+}
 
-// service配置文件格式
+type ServerCodec interface {
+	ReadRequestHeader(*ReqMsg) error
+	ReadRequestBody(interface{}) error
+	WriteResponse(*ReplyMsg, interface{}) error
+	Close() error
+}
